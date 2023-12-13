@@ -142,3 +142,7 @@ function init_db_myplugin() {
 }
 
 ?>
+
+function my_plugin_menu() {
+	add_menu_page( 'Manage Dokumen', 'Manage Dokumen', 'manage_options', 'URL', 'tampilan_plugin' );
+}
