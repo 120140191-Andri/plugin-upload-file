@@ -186,3 +186,62 @@ function tampilan_plugin() {
     }
 
 ?>
+
+<div class="container mt-4">
+        <div class="row">
+            <form class="col-12" action="" method="POST" enctype='multipart/form-data'>
+            <label for="basic-url">Upload File</label>
+            <div class="input-group mb-3">
+                <input type="file" class="form-control" placeholder="Masukan URL" aria-label="Recipient's username" aria-describedby="basic-addon2" name="dataurl">
+                    <div class="input-group-append">
+                        <input class="btn btn-primary" type="submit" value="Tambah"></input>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row mt-4">
+            <label for="">List URL</label>
+            <table class="table" class="col-12">
+                <thead class="thead-dark">
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">nama file</th>
+                    <th scope="col">Tanggal Upload</th>
+                    <th scope="col">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                        // WP Globals
+                        global $table_prefix, $wpdb;
+
+                        // Customer Table
+                        $table_nam = $table_prefix . 'upload_file';
+
+                        $results = $wpdb->get_results( "SELECT * FROM $table_nam ORDER BY id DESC"); 
+                        if(!empty($results)){
+                            foreach($results as $row){ ?>
+                                <tr>
+                                    <th scope="row">#</th>
+                                    <td>
+                                        <?= $row->nama_file ?>
+                                    </td>
+                                    <td><?= $row->created_at ?></td>
+                                    <td>
+                                        <form action="" method="POST">
+                                            <input type="hidden" name="idhapus" value="<?= $row->id ?>">
+                                            <a href="<?= $row->lokasi ?>" class="btn btn-primary">Download</a>
+                                            <input class="btn btn-danger" type="submit" value="Hapus">
+                                        </form>
+                                    </td>
+                                </tr>
+                        <?php 
+                            }
+                        }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<?php 
+}
