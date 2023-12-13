@@ -141,8 +141,48 @@ function init_db_myplugin() {
 
 }
 
-?>
 
 function my_plugin_menu() {
 	add_menu_page( 'Manage Dokumen', 'Manage Dokumen', 'manage_options', 'URL', 'tampilan_plugin' );
 }
+function tampilan_plugin() { 
+
+    if(isset($_FILES["dataurl"]["tmp_name"])){
+        
+        $uploadedfile = $_FILES['dataurl'];
+        $upload_overrides = array( 'test_form' => false );
+
+        $movefile = wp_handle_upload( $uploadedfile, $upload_overrides );
+        
+        // WP Globals
+        global $table_prefix, $wpdb;
+
+        // Customer Table
+        $table_nam = $table_prefix . 'upload_file';
+
+        $wpdb->insert($table_nam, array(
+            'nama_file' => $uploadedfile['name'],
+            'lokasi' => $movefile['url']
+        ));            
+
+        echo "Berhasil Diupload";
+        
+    }else{
+        // echo 'ss';
+    }
+
+    if(isset($_POST['idhapus'])){
+        // WP Globals
+        global $table_prefix, $wpdb;
+
+        // Customer Table
+        $table_nam = $table_prefix . 'upload_file';
+
+        $wpdb->delete($table_nam, array(
+            'id' => $_POST['idhapus'],
+        ));
+
+        echo "Berhasil Hapus Data";
+    }
+
+?>
