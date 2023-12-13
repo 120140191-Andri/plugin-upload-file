@@ -205,7 +205,7 @@ function tampilan_plugin() {
                 <thead class="thead-dark">
                     <tr>
                     <th scope="col">#</th>
-                    <th scope="col">nama file</th>
+                    <th scope="col">Nama File</th>
                     <th scope="col">Tanggal Upload</th>
                     <th scope="col">Aksi</th>
                     </tr>
